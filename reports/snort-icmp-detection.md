@@ -87,3 +87,6 @@ Investigate how Snort handles different ICMP types and traffic patterns.
 Document tuning opportunities to reduce unnecessary alerts.
 
 Raw packet captures and temporary logs remain outside the public repository unless reviewed and intentionally selected for publication.
+What this evidence demonstrates: Snort observed ICMP traffic on the lab monitoring interface and generated alerts using the configured local ICMP detection rule (SID 1000001).
+
+Security interpretation: An ICMP alert confirms that traffic matched the rule; it does not, by itself, establish malicious activity. Analysts must correlate alerts with packet details, source and destination addresses, and other available evidence.
