@@ -26,13 +26,13 @@ Testing focused on ICMP echo traffic within the `172.30.1.0/24` lab subnet.
 
 ### Finding 2 — Snort visibility and basic ICMP alerting verified
 
-**Evidence:** The Snort VM observed ICMP traffic on `enp0s8`, the Snort configuration passed `snort -T`, and the local rule with SID `1000001` generated alerts during the test.
+**Evidence:** The Snort VM observed ICMP traffic on `enp0s8`, the Snort configuration passed `snort -T`, and the local rule with SID `1000001` generated alerts during the test. See the [basic Snort ICMP screenshot](../screenshots/Snort%20ICMP%20Detected.png).
 
 **Interpretation:** The sensor could observe the tested traffic and generate a rule-based alert. The rule is broad, so routine ICMP may generate alerts. An alert is an investigative signal, not a conclusion that an attack occurred.
 
 ### Finding 3 — Large-ICMP detection tested
 
-**Evidence:** A 600-byte ICMP ping payload was generated and the resulting packet characteristics were inspected in Wireshark. The large-ICMP rule, SID `1000002`, was tested and the observed packet evidence was reported as consistent with the alert.
+**Evidence:** A 600-byte ICMP ping payload was generated and the resulting packet characteristics were inspected in Wireshark. The large-ICMP rule, SID `1000002`, was tested and the observed packet evidence was reported as consistent with the alert. Public evidence is now available for [Wireshark large-ICMP traffic](../screenshots/Wireshark%20large%20ICMP%20traffic.png), [Wireshark large-ICMP packet data](../screenshots/Wireshark%20large%20ICMP%20traffic%20data.png), and the [Snort large-ICMP alert](../screenshots/Snort%20large-ICMP%20alert%20screenshot.png).
 
 **Interpretation:** Payload-size rules can identify traffic that meets a configured threshold. Large ICMP packets may be legitimate troubleshooting traffic or may warrant additional investigation depending on context. Size alone is not proof of tunneling or malicious activity.
 
@@ -64,11 +64,14 @@ Testing focused on ICMP echo traffic within the `172.30.1.0/24` lab subnet.
 
 ## Conclusion
 
-The project demonstrates a repeatable introductory workflow: generate controlled traffic, observe packets, validate sensor visibility, inspect IDS alerts, and document findings with limitations and recommendations. The most important next improvements are verifying network boundaries, completing the public screenshot evidence, and testing additional detection scenarios with recorded expected outcomes.
+The project demonstrates a repeatable introductory workflow: generate controlled traffic, observe packets, validate sensor visibility, inspect IDS alerts, and document findings with limitations and recommendations. The basic and large-ICMP screenshot evidence is now published. The most important next improvements are verifying network boundaries and testing additional detection scenarios with recorded expected outcomes.
 
 ## Evidence Status
 
-- Basic Wireshark ICMP screenshot: [available](../screenshots/Wireshark%20ICMP%20packet.png).
-- Snort basic ICMP alert screenshot: [available](../screenshots/Snort%20ICMP%20Detected.png).
-- Snort large-ICMP alert screenshot: pending upload.
-- Large-ICMP Wireshark screenshot: pending upload.
+The requested screenshot evidence for the documented ICMP tests is uploaded and linked:
+
+- [Wireshark basic ICMP packet](../screenshots/Wireshark%20ICMP%20packet.png)
+- [Snort basic ICMP alert](../screenshots/Snort%20ICMP%20Detected.png)
+- [Snort large-ICMP alert](../screenshots/Snort%20large-ICMP%20alert%20screenshot.png)
+- [Wireshark large-ICMP traffic](../screenshots/Wireshark%20large%20ICMP%20traffic.png)
+- [Wireshark large-ICMP traffic data](../screenshots/Wireshark%20large%20ICMP%20traffic%20data.png)
