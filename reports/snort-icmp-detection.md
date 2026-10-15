@@ -10,7 +10,7 @@ Validate that Snort IDS can observe authorized lab ICMP traffic and generate ale
 |---|---|---|---|
 | Kali Linux | eth1 | 172.30.1.20/24 | Traffic generator and analyst |
 | Metasploitable 2 | eth0 | 172.30.1.21/24 | Authorized test target |
-| Snort Ubuntu VM | enp0s8 | 172.30.1.30/24 | Network monitoring sensor |
+| Snort Ubuntu VM | enp0s8 | 172.30.1.30/24 | Network monitoring Intrusion Detection System (IDS) |
 
 ## Tools and Configuration
 
@@ -53,7 +53,7 @@ alert icmp any any -> $HOME_NET any (msg:"ICMP Detected";sid:1000001;rev:1)
 
 **Purpose:** Establish a baseline by alerting on ICMP traffic directed toward the configured home network. This rule was selected to confirm that Snort could observe the test traffic and generate alerts.
 
-**Expected result:** When Kali Linux sends ICMP echo requests to the Metasploitable 2 target, Snort should generate alerts for matching traffic visible to the sensor.
+**Expected result:** When Kali Linux sends ICMP echo requests to the Metasploitable 2 target, Snort should generate alerts for matching traffic visible to the Intrusion Detection System (IDS).
 
 **Limitation:** This is a broad rule. ICMP is routinely used for connectivity checks and troubleshooting, so alerts may represent expected activity rather than a security incident.
 
@@ -89,7 +89,7 @@ During monitoring, I would:
 
 1. **Establish a baseline:** Record expected traffic, alert frequency, source and destination addresses, and normal lab activity.
 2. **Validate alerts:** Compare Snort timestamps, rule SIDs, and packet details with Wireshark captures. Confirm that the alert corresponds to the traffic generated during the test.
-3. **Check sensor health:** Verify the correct monitoring interface is active, confirm Snort configuration validity, and investigate packet drops or visibility gaps.
+3. **Check Intrusion Detection System (IDS) health:** Verify the correct monitoring interface is active, confirm Snort configuration validity, and investigate packet drops or visibility gaps.
 4. **Investigate false positives:** Determine whether alerts correspond to authorized diagnostics or unexpected behavior. Consider packet size, frequency, endpoints, timing, and other available logs.
 5. **Tune carefully:** Adjust thresholds, add contextual conditions, or separate different ICMP behaviors where justified. Avoid simply suppressing alerts to reduce alert volume.
 6. **Retest and document:** Repeat known test cases after each change, record expected versus observed results, and confirm that tuning reduces unnecessary alerts without losing the detection behavior being tested.
