@@ -61,3 +61,26 @@ Evidence
 Screenshot: screenshots/icmp-capture.png
 
 The raw packet capture is retained locally in /tmp and is not included in this repository.
+
+Large ICMP Packet Analysis and IDS Correlation
+
+Objective
+
+Examine large ICMP packets in Wireshark and correlate the observed traffic with Snort's large-ICMP detection rule, SID 1000002.
+
+Packet Analysis
+
+Generated ICMP traffic from Kali Linux (172.30.1.20) to Metasploitable 2 (172.30.1.21) using a 600-byte ping payload.
+
+Inspected the packet frame length, IPv4 total length, and ICMP fields in Wireshark to verify the characteristics of the generated traffic.
+
+Snort Correlation
+
+Compared the observed traffic with Snort's alert output for SID 1000002. The rule is configured to alert on ICMP packets with payloads exceeding 500 bytes.
+
+Observed result: Wireshark packet evidence and Snort alerts were consistent.
+
+Security Interpretation
+
+Large ICMP packets may warrant investigation in context, but packet size alone does not establish malicious activity. Analysts should correlate packet details, endpoint behavior, traffic patterns, and other relevant telemetry before determining whether an alert represents a threat.
+
