@@ -38,6 +38,7 @@ A hands-on cybersecurity homelab project demonstrating packet inspection, networ
 - Confirmed Snort could observe ICMP traffic on `enp0s8`.
 - Validated Snort configuration using `snort -T`.
 - Tested basic ICMP detection (SID `1000001`) and large-ICMP detection (SID `1000002`).
+- Published screenshots for basic ICMP traffic, large-ICMP packet inspection, and the Snort large-ICMP alert.
 - Documented limitations: broad ICMP rules can generate benign alerts, packet size alone does not prove malicious intent, and additional VM interfaces mean full network isolation must not be assumed.
 
 ## Reports and Evidence
@@ -48,15 +49,15 @@ A hands-on cybersecurity homelab project demonstrating packet inspection, networ
 - [Findings and remediation recommendations](reports/findings-and-remediation.md)
 - [Screenshots directory](screenshots/)
 
-Available screenshots:
+### Available screenshots
+
 - [Wireshark basic ICMP packet](screenshots/Wireshark%20ICMP%20packet.png)
 - [Snort basic ICMP alert](screenshots/Snort%20ICMP%20Detected.png)
+- [Snort large-ICMP alert](screenshots/Snort%20large-ICMP%20alert%20screenshot.png)
+- [Wireshark large-ICMP traffic](screenshots/Wireshark%20large%20ICMP%20traffic.png)
+- [Wireshark large-ICMP traffic data](screenshots/Wireshark%20large%20ICMP%20traffic%20data.png)
 
-Still to add:
-- Snort large-ICMP alert screenshot
-- Wireshark large-ICMP packet analysis screenshot
-
-The report links to the evidence that is currently present. The project is not evidence-complete until the remaining screenshots are uploaded and linked.
+The public screenshot evidence for the basic ICMP test and large-ICMP detection test is now uploaded and linked in the reports. Additional benign-versus-suspicious traffic testing and network-boundary validation remain potential follow-up improvements.
 
 ## Safety and Evidence Handling
 
@@ -64,4 +65,4 @@ All tests are intended for systems the author owns or is authorized to assess. K
 
 ## Current Status
 
-**Core ICMP and Snort tests documented; evidence cleanup and further detection testing remain in progress.**
+**Core ICMP and Snort tests documented with screenshots; additional detection testing and network-boundary validation remain in progress.**
