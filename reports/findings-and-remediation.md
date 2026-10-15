@@ -68,7 +68,7 @@ The project demonstrates a repeatable introductory workflow: generate controlled
 
 ## Evidence Status
 
-- Basic Wireshark ICMP screenshot: present in the repository.
-- Snort basic ICMP alert screenshot: pending repository verification/upload.
-- Snort large-ICMP alert screenshot: pending repository verification/upload.
-- Large-ICMP Wireshark screenshot: pending repository verification/upload.
+- Basic Wireshark ICMP screenshot: [available](../screenshots/Wireshark%20ICMP%20packet.png).
+- Snort basic ICMP alert screenshot: [available](../screenshots/Snort%20ICMP%20Detected.png).
+- Snort large-ICMP alert screenshot: pending upload.
+- Large-ICMP Wireshark screenshot: pending upload.
