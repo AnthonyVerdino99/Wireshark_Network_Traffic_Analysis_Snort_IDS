@@ -2,7 +2,7 @@
 
 ## Objective
 
-Validate that Snort IDS can observe authorized lab ICMP traffic and generate an alert using a local rule.
+Validate that Snort IDS can observe authorized lab ICMP traffic and generate alerts using local rules, including a rule for ICMP payloads larger than 500 bytes.
 
 ## Lab Environment
 
@@ -20,7 +20,7 @@ Validate that Snort IDS can observe authorized lab ICMP traffic and generate an 
 - Snort configuration validated with `snort -T`
 - `HOME_NET` includes `172.30.1.0/24`, and the configuration includes local rules
 
-## Detection Rule
+## Detection Rule — General ICMP
 
 ```snort
 alert icmp any any -> $HOME_NET any (msg:"ICMP Detected";sid:1000001;rev:1)
@@ -29,21 +29,17 @@ alert icmp any any -> $HOME_NET any (msg:"ICMP Detected";sid:1000001;rev:1)
 - **SID:** `1000001`
 - **Alert message:** `ICMP Detected`
 
-## Test Procedure
+## Test Procedure and Results
 
 1. Started Snort monitoring on `enp0s8`.
 2. Generated four ICMP echo requests from Kali to Metasploitable 2.
 3. Observed Snort alerts for the generated ICMP traffic.
 
-## Results
+**Outcome:** Successful detection. Snort observed the test traffic and generated alerts matching SID `1000001`.
 
-**Outcome:** Successful detection.
+## Evidence — Basic ICMP
 
-Snort detected the test ICMP traffic using the local rule. This confirms that the monitoring interface could observe the tested traffic and that the rule generated alerts.
-
-## Evidence
-
-![Snort ICMP detection console](../screenshots/Snort%20ICMP%20Detected.png)
+![Snort basic ICMP detection console](../screenshots/Snort%20ICMP%20Detected.png)
 
 **What it demonstrates:** Snort observed ICMP traffic and generated an alert matching SID `1000001`.
 
@@ -77,6 +73,12 @@ ping -c 4 -s 600 172.30.1.21
 
 I inspected the resulting packets in Wireshark and compared the observations with Snort's alert output. The test was intended to validate that the traffic matched the configured detection condition.
 
+### Evidence — Large-ICMP Detection
+
+![Snort large-ICMP alert](../screenshots/Snort%20large-ICMP%20alert%20screenshot.png)
+
+**What it demonstrates:** The screenshot records Snort's large-ICMP alert during the controlled test. See [ICMP traffic analysis](icmp-analysis.md) for the corresponding Wireshark packet inspection.
+
 **Security interpretation:** Larger ICMP payloads can be legitimate, but unusual packet sizes, unexpected destinations, repeated patterns, or abnormal traffic volumes may warrant further investigation. Packet size alone does not prove an attack or ICMP tunneling.
 
 ### Monitoring, False Positives, and Rule Tuning
@@ -98,14 +100,13 @@ The objective is a stable, explainable detection process—not zero alerts. A us
 
 ## Security Analysis and Limitations
 
-The rule is broad and can alert on routine ICMP traffic. An ICMP alert is an investigative signal, not proof of malicious activity. Analysts should validate source and destination addresses, packet details, timing, frequency, and other available telemetry.
+The basic rule is broad and can alert on routine ICMP traffic. An ICMP alert is an investigative signal, not proof of malicious activity. Analysts should validate source and destination addresses, packet details, timing, frequency, and other available telemetry.
 
-The separate large-ICMP rule (SID `1000002`) was tested with a 600-byte ping payload. The detailed packet correlation is documented in [ICMP traffic analysis](icmp-analysis.md). Its dedicated Snort alert screenshot still needs to be uploaded.
+The large-ICMP rule (SID `1000002`) was tested with a 600-byte ping payload. Both the Snort alert and related Wireshark packet screenshots are now available in the repository. See [ICMP traffic analysis](icmp-analysis.md) for packet-level evidence.
 
 Raw packet captures and temporary logs remain outside the public repository unless reviewed and intentionally selected for publication.
 
 ## Next Steps
 
-- Add the large-ICMP Snort alert screenshot and large-ICMP Wireshark screenshot.
 - Continue testing benign traffic patterns and document false-positive considerations.
 - Validate VirtualBox network boundaries before describing the entire environment as fully isolated.
