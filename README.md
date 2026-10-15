@@ -1,52 +1,59 @@
 # Wireshark Network Traffic Analysis & Snort IDS
 
-## Project Overview
+A hands-on cybersecurity homelab project demonstrating packet inspection, network-based intrusion detection, alert validation, and blue-team reporting using Wireshark, tcpdump, and Snort.
 
-This cybersecurity homelab project explores network traffic analysis,
-intrusion detection, and defensive security investigation using Wireshark
-and Snort IDS.
+> **Scope:** Authorized testing of controlled ICMP traffic in a personal lab. The work demonstrates introductory detection validation, not a production security assessment. Complete network isolation has not yet been established because the Kali and Snort VMs also have interfaces on the `10.0.0.0/24` network.
 
-The project documents lab setup, packet analysis, detection rules,
-investigation findings, and remediation recommendations.
+## Project Goals
 
-## Objectives
+- Document the lab topology and connectivity.
+- Capture and inspect network traffic with tcpdump and Wireshark.
+- Validate Snort configuration and verify that the sensor can observe lab traffic.
+- Test basic ICMP and large-ICMP detection rules.
+- Correlate packet evidence with IDS alerts.
+- Explain detection limitations, false-positive considerations, and defensive improvements.
 
-- Document an isolated cybersecurity lab environment.
-- Analyze authorized lab network traffic with Wireshark.
-- Configure Snort IDS and evaluate alerts.
-- Correlate network observations with intrusion detection events.
-- Document findings and recommend defensive improvements.
+## Lab Environment
+
+| System | Interface | IPv4 address | Role |
+|---|---|---|---|
+| Kali Linux | eth1 | 172.30.1.20/24 | Analyst workstation and traffic generator |
+| Metasploitable 2 | eth0 | 172.30.1.21/24 | Authorized test target |
+| Snort Ubuntu VM | enp0s8 | 172.30.1.30/24 | IDS monitoring sensor |
+
+**Lab subnet:** `172.30.1.0/24`
 
 ## Tools
 
 - Kali Linux
-- Wireshark
-- Snort IDS
+- Wireshark 4.6.4
+- tcpdump 4.99.x (versions are recorded in the individual reports)
+- Snort 2.9.20 GRE
 - Metasploitable 2
-- VirtualBox
+- Oracle VirtualBox
 
-## Project Milestones
+## Key Results
 
-1. Repository and lab setup
-2. Network topology documentation
-3. Wireshark traffic capture and analysis
-4. Snort IDS configuration and alert investigation
-5. Findings, remediation, and final report
+- Captured four ICMP echo requests and four replies between Kali and Metasploitable 2.
+- Confirmed Snort could observe ICMP traffic on `enp0s8`.
+- Validated Snort configuration using `snort -T`.
+- Tested basic ICMP detection (SID `1000001`) and large-ICMP detection (SID `1000002`).
+- Documented limitations: broad ICMP rules can generate benign alerts, packet size alone does not prove malicious intent, and additional VM interfaces mean full network isolation must not be assumed.
 
-## Lab Safety
+## Reports and Evidence
 
-All testing is conducted in an isolated, authorized lab environment.
-Public evidence will be reviewed for credentials and sensitive information.
+- [Network topology and connectivity verification](reports/network-topology.md)
+- [ICMP traffic analysis and IDS correlation](reports/icmp-analysis.md)
+- [Snort ICMP detection test](reports/snort-icmp-detection.md)
+- [Findings and remediation recommendations](reports/findings-and-remediation.md)
+- [Screenshots directory](screenshots/)
 
-## Evidence
+The basic Wireshark ICMP screenshot is available in the screenshots directory. Snort alert screenshots and the large-ICMP Wireshark screenshot should be added and their links verified before this portfolio is considered evidence-complete.
 
-- Screenshots: screenshots/
-- Reports: reports/
-- Snort configurations: configs/snort/
-- Custom rules: rules/
+## Safety and Evidence Handling
 
-Packet captures are excluded from Git by default and must be reviewed before publication.
+All tests are intended for systems the author owns or is authorized to assess. Keep vulnerable targets on an appropriately restricted lab network. Review screenshots and logs before publishing. Raw packet captures, credentials, private keys, and other sensitive material should not be committed to this public repository.
 
-## Status
+## Current Status
 
-In progress.
+**Core ICMP and Snort tests documented; evidence cleanup and further detection testing remain in progress.**
