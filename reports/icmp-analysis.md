@@ -1,86 +1,55 @@
-ICMP Traffic Analysis — Wireshark and tcpdump
+# ICMP Traffic Analysis — Wireshark and tcpdump
 
-Objective
+## Objective
 
-Capture and analyze authorized ICMP traffic between Kali Linux and the Metasploitable 2 lab target.
+Capture and analyze authorized ICMP traffic between Kali Linux and the Metasploitable 2 lab target, then correlate larger ICMP packets with Snort detection.
 
-Lab Environment
+## Lab Environment
 
-System
+| System | Interface | IPv4 address |
+|---|---|---|
+| Kali Linux | eth1 | 172.30.1.20/24 |
+| Metasploitable 2 | eth0 | 172.30.1.21/24 |
+| Snort Ubuntu VM | enp0s8 | 172.30.1.30/24 |
 
-Interface
+## Basic ICMP Capture
 
-IPv4 Address
+- **Capture interface:** `eth1`
+- **Capture filter:** `icmp and host 172.30.1.21`
+- **Tools:** tcpdump 4.99.6 and Wireshark 4.6.4
+- **Temporary capture:** `/tmp/icmp-test.pcap`
 
-Kali Linux
+### Results
 
-eth1
+| Measure | Result |
+|---|---:|
+| Packets captured | 8 |
+| Packets dropped by kernel | 0 |
+| ICMP echo requests | 4 |
+| ICMP echo replies | 4 |
 
-172.30.1.20/24
+The observed echo requests from `172.30.1.20` to `172.30.1.21` each had a corresponding echo reply with a matching sequence number. This confirms bidirectional ICMP communication during the test.
 
-Metasploitable 2
+### Evidence
 
-eth0
+![Wireshark ICMP packet analysis](../screenshots/Wireshark%20ICMP%20packet.png)
 
-172.30.1.21/24
+The raw packet capture remains in `/tmp` and is not included in the public repository.
 
-Capture Method
+## Large ICMP Packet Analysis and IDS Correlation
 
-Capture interface: eth1
+### Objective
 
-Capture filter: icmp and host 172.30.1.21
+Examine larger ICMP packets in Wireshark and correlate the observed traffic with Snort's large-ICMP detection rule, SID `1000002`.
 
-Tools: tcpdump 4.99.6 and Wireshark 4.6.4
+### Test Procedure
 
-Temporary capture file: /tmp/icmp-test.pcap
+1. Generated ICMP traffic from Kali Linux (`172.30.1.20`) to Metasploitable 2 (`172.30.1.21`) using a 600-byte ping payload.
+2. Inspected packet details in Wireshark, including frame length, IPv4 total length, and ICMP fields.
+3. Compared the packet evidence with Snort's alert output for SID `1000002`, configured for ICMP payloads larger than 500 bytes.
 
-Results
+### Result and Interpretation
 
-Packets captured: 8
+The test was reported as successful, with Wireshark packet observations consistent with Snort's large-ICMP alert. Packet size can be a useful investigation signal, but it does not independently establish malicious intent. Analysts should consider source and destination, frequency, surrounding traffic, endpoint context, and other telemetry.
 
-Packets dropped by kernel: 0
-
-ICMP echo requests: 4
-
-ICMP echo replies: 4
-
-Source: 172.30.1.20
-
-Destination: 172.30.1.21
-
-Each observed echo request had a corresponding echo reply with the matching sequence number.
-
-Analysis
-
-The capture demonstrates successful bidirectional ICMP communication between Kali Linux and Metasploitable 2 over the lab network. The packet list was inspected in Wireshark using the icmp display filter.
-
-This test validates basic reachability and packet inspection. It does not establish that Snort can observe the traffic or generate alerts; that will be tested in a later milestone.
-
-Evidence
-
-Screenshot: screenshots/icmp-capture.png
-
-The raw packet capture is retained locally in /tmp and is not included in this repository.
-
-Large ICMP Packet Analysis and IDS Correlation
-
-Objective
-
-Examine large ICMP packets in Wireshark and correlate the observed traffic with Snort's large-ICMP detection rule, SID 1000002.
-
-Packet Analysis
-
-Generated ICMP traffic from Kali Linux (172.30.1.20) to Metasploitable 2 (172.30.1.21) using a 600-byte ping payload.
-
-Inspected the packet frame length, IPv4 total length, and ICMP fields in Wireshark to verify the characteristics of the generated traffic.
-
-Snort Correlation
-
-Compared the observed traffic with Snort's alert output for SID 1000002. The rule is configured to alert on ICMP packets with payloads exceeding 500 bytes.
-
-Observed result: Wireshark packet evidence and Snort alerts were consistent.
-
-Security Interpretation
-
-Large ICMP packets may warrant investigation in context, but packet size alone does not establish malicious activity. Analysts should correlate packet details, endpoint behavior, traffic patterns, and other relevant telemetry before determining whether an alert represents a threat.
-
+The raw capture and temporary logs remain local and are not published. The large-ICMP Wireshark screenshot and Snort console screenshots still need to be added to the public repository before this report can link to them as public evidence.
