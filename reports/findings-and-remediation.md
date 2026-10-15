@@ -12,7 +12,7 @@ These tests validate a small lab detection workflow; they do not establish produ
 |---|---|---|---|
 | Kali Linux | eth1 | 172.30.1.20/24 | Analyst workstation and traffic generator |
 | Metasploitable 2 | eth0 | 172.30.1.21/24 | Authorized test target |
-| Snort Ubuntu VM | enp0s8 | 172.30.1.30/24 | IDS sensor |
+| Snort Ubuntu VM | enp0s8 | 172.30.1.30/24 | IDS Intrusion Detection System (IDS) |
 
 Testing focused on ICMP echo traffic within the `172.30.1.0/24` lab subnet.
 
@@ -28,7 +28,7 @@ Testing focused on ICMP echo traffic within the `172.30.1.0/24` lab subnet.
 
 **Evidence:** The Snort VM observed ICMP traffic on `enp0s8`, the Snort configuration passed `snort -T`, and the local rule with SID `1000001` generated alerts during the test. See the [basic Snort ICMP screenshot](../screenshots/Snort%20ICMP%20Detected.png).
 
-**Interpretation:** The sensor could observe the tested traffic and generate a rule-based alert. The rule is broad, so routine ICMP may generate alerts. An alert is an investigative signal, not a conclusion that an attack occurred.
+**Interpretation:** The Intrusion Detection System (IDS) could observe the tested traffic and generate a rule-based alert. The rule is broad, so routine ICMP may generate alerts. An alert is an investigative signal, not a conclusion that an attack occurred.
 
 ### Finding 3 — Large-ICMP detection tested
 
@@ -48,7 +48,7 @@ Testing focused on ICMP echo traffic within the `172.30.1.0/24` lab subnet.
 
 - The basic ICMP rule may alert on ordinary echo requests and replies. Repeated alerts are not necessarily incidents.
 - The large-ICMP rule relies on a fixed payload-size threshold. Legitimate diagnostic activity can trigger it, while other suspicious activity may not match it.
-- Rules only detect traffic visible to the sensor and covered by the configured rules. Traffic on an unmonitored interface or encrypted/application-layer behavior may require other telemetry.
+- Rules only detect traffic visible to the Intrusion Detection System (IDS) and covered by the configured rules. Traffic on an unmonitored interface or encrypted/application-layer behavior may require other telemetry.
 - The tests covered a small number of controlled packets. They do not measure detection rate, false-positive rate, throughput, or resilience under load.
 - Alerts should be triaged using packet details, endpoints, timing, frequency, baseline behavior, and relevant endpoint or firewall logs.
 
@@ -58,13 +58,13 @@ Testing focused on ICMP echo traffic within the `172.30.1.0/24` lab subnet.
 2. **Tune ICMP alerting:** Consider separating echo requests from replies, using sensible thresholds or rate-based detection, and documenting expected diagnostic traffic.
 3. **Improve alert context:** Ensure alerts include useful source/destination details and timestamps; correlate with Wireshark captures and host/firewall logs.
 4. **Test rule behavior systematically:** Record test input, expected result, observed alert, pass/fail status, and any limitations for each rule.
-5. **Monitor sensor health:** Periodically validate Snort configuration, confirm the correct interface is monitored, and check for packet drops.
+5. **Monitor Intrusion Detection System (IDS) health:** Periodically validate Snort configuration, confirm the correct interface is monitored, and check for packet drops.
 6. **Protect evidence:** Keep raw packet captures and temporary logs out of the public repository unless reviewed for sensitive data. Publish selected screenshots with clear labels.
 7. **Expand detections safely:** After verifying appropriate lab isolation, test additional benign traffic patterns and document rule tuning before considering similar detections in a production environment.
 
 ## Conclusion
 
-The project demonstrates a repeatable introductory workflow: generate controlled traffic, observe packets, validate sensor visibility, inspect IDS alerts, and document findings with limitations and recommendations. The basic and large-ICMP screenshot evidence is now published. The most important next improvements are verifying network boundaries and testing additional detection scenarios with recorded expected outcomes.
+The project demonstrates a repeatable introductory workflow: generate controlled traffic, observe packets, validate Intrusion Detection System (IDS) visibility, inspect IDS alerts, and document findings with limitations and recommendations. The basic and large-ICMP screenshot evidence is now published. The most important next improvements are verifying network boundaries and testing additional detection scenarios with recorded expected outcomes.
 
 ## Evidence Status
 
