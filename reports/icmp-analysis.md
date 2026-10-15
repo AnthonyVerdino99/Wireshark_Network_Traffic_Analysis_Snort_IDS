@@ -32,7 +32,7 @@ The observed echo requests from `172.30.1.20` to `172.30.1.21` each had a corres
 
 ### Evidence
 
-![Wireshark ICMP packet analysis](../screenshots/Wireshark%20ICMP%20packet.png)
+![Wireshark basic ICMP packet analysis](../screenshots/Wireshark%20ICMP%20packet.png)
 
 The raw packet capture remains in `/tmp` and is not included in the public repository.
 
@@ -48,8 +48,22 @@ Examine larger ICMP packets in Wireshark and correlate the observed traffic with
 2. Inspected packet details in Wireshark, including frame length, IPv4 total length, and ICMP fields.
 3. Compared the packet evidence with Snort's alert output for SID `1000002`, configured for ICMP payloads larger than 500 bytes.
 
+### Wireshark Evidence — Large ICMP Traffic
+
+![Wireshark large ICMP traffic](../screenshots/Wireshark%20large%20ICMP%20traffic.png)
+
+This screenshot provides a view of the large-ICMP traffic observed during the test.
+
+### Wireshark Evidence — Packet Data
+
+![Wireshark large ICMP traffic data](../screenshots/Wireshark%20large%20ICMP%20traffic%20data.png)
+
+This screenshot provides additional packet-data evidence for examining the large ICMP traffic. Interpret packet sizes alongside the selected packet fields and capture context.
+
 ### Result and Interpretation
 
-The test was reported as successful, with Wireshark packet observations consistent with Snort's large-ICMP alert. Packet size can be a useful investigation signal, but it does not independently establish malicious intent. Analysts should consider source and destination, frequency, surrounding traffic, endpoint context, and other telemetry.
+The test was reported as successful, with Wireshark packet observations consistent with Snort's large-ICMP alert. The corresponding [Snort large-ICMP alert screenshot](../screenshots/Snort%20large-ICMP%20alert%20screenshot.png) is also available.
 
-The raw capture and temporary logs remain local and are not published. The basic Snort ICMP screenshot is available in the repository; the dedicated large-ICMP Wireshark screenshot and large-ICMP Snort alert screenshot have been intentionally deferred.
+Packet size can be a useful investigation signal, but it does not independently establish malicious intent. Analysts should consider source and destination, frequency, surrounding traffic, endpoint context, and other telemetry.
+
+The raw capture and temporary logs remain local and are not published.
