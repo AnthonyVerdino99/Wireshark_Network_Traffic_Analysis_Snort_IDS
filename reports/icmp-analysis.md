@@ -52,4 +52,4 @@ Examine larger ICMP packets in Wireshark and correlate the observed traffic with
 
 The test was reported as successful, with Wireshark packet observations consistent with Snort's large-ICMP alert. Packet size can be a useful investigation signal, but it does not independently establish malicious intent. Analysts should consider source and destination, frequency, surrounding traffic, endpoint context, and other telemetry.
 
-The raw capture and temporary logs remain local and are not published. The large-ICMP Wireshark screenshot and Snort console screenshots still need to be added to the public repository before this report can link to them as public evidence.
+The raw capture and temporary logs remain local and are not published. The basic Snort ICMP screenshot is available in the repository; the dedicated large-ICMP Wireshark screenshot and large-ICMP Snort alert screenshot have been intentionally deferred.
