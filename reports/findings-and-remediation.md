@@ -60,7 +60,7 @@ Testing focused on ICMP echo traffic within the `172.30.1.0/24` lab subnet.
 4. **Test rule behavior systematically:** Record test input, expected result, observed alert, pass/fail status, and any limitations for each rule.
 5. **Monitor sensor health:** Periodically validate Snort configuration, confirm the correct interface is monitored, and check for packet drops.
 6. **Protect evidence:** Keep raw packet captures and temporary logs out of the public repository unless reviewed for sensitive data. Publish selected screenshots with clear labels.
-7. **Expand detections safely:** In the isolated lab, test additional benign traffic patterns and document rule tuning before adding rules to a production environment.
+7. **Expand detections safely:** After verifying appropriate lab isolation, test additional benign traffic patterns and document rule tuning before considering similar detections in a production environment.
 
 ## Conclusion
 
