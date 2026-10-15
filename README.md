@@ -48,7 +48,15 @@ A hands-on cybersecurity homelab project demonstrating packet inspection, networ
 - [Findings and remediation recommendations](reports/findings-and-remediation.md)
 - [Screenshots directory](screenshots/)
 
-The basic Wireshark ICMP screenshot is available in the screenshots directory. Snort alert screenshots and the large-ICMP Wireshark screenshot should be added and their links verified before this portfolio is considered evidence-complete.
+Available screenshots:
+- [Wireshark basic ICMP packet](screenshots/Wireshark%20ICMP%20packet.png)
+- [Snort basic ICMP alert](screenshots/Snort%20ICMP%20Detected.png)
+
+Still to add:
+- Snort large-ICMP alert screenshot
+- Wireshark large-ICMP packet analysis screenshot
+
+The report links to the evidence that is currently present. The project is not evidence-complete until the remaining screenshots are uploaded and linked.
 
 ## Safety and Evidence Handling
 
