@@ -8,7 +8,7 @@ A hands-on cybersecurity homelab project demonstrating packet inspection, networ
 
 - Document the lab topology and connectivity.
 - Capture and inspect network traffic with tcpdump and Wireshark.
-- Validate Snort configuration and verify that the sensor can observe lab traffic.
+- Validate Snort configuration and verify that the Intrusion Detection System (IDS) can observe lab traffic.
 - Test basic ICMP and large-ICMP detection rules.
 - Correlate packet evidence with IDS alerts.
 - Explain detection limitations, false-positive considerations, and defensive improvements.
@@ -19,7 +19,7 @@ A hands-on cybersecurity homelab project demonstrating packet inspection, networ
 |---|---|---|---|
 | Kali Linux | eth1 | 172.30.1.20/24 | Analyst workstation and traffic generator |
 | Metasploitable 2 | eth0 | 172.30.1.21/24 | Authorized test target |
-| Snort Ubuntu VM | enp0s8 | 172.30.1.30/24 | IDS monitoring sensor |
+| Snort Ubuntu VM | enp0s8 | 172.30.1.30/24 | IDS monitoring Intrusion Detection System (IDS) |
 
 **Lab subnet:** `172.30.1.0/24`
 
